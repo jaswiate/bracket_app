@@ -1,0 +1,9 @@
+.nav-bar-container {
+	display: flex;
+	flex-direction: column;
+	width: 15vw;
+	height: 100vh;
+	background-color: var(--color-green-0);
+	border-top-right-radius: 8vh;
+	border-bottom-right-radius: 8vh;
+}

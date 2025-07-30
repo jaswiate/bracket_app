@@ -1,0 +1,10 @@
+.app-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.content {
+	flex: 1;
+	padding: 2vw;
+	background-color: var(--color-primary-2);
+}

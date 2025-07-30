@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": false,
+    "target": "es2022",
+    "module": "preserve",
+    "lib": ["es2020", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@bracket-app/data-access": ["libs/bracket/data-access/src/index.ts"],
+      "@bracket-app/feat-bracket-setup": [
+        "libs/bracket/feat-bracket-setup/src/index.ts"
+      ],
+      "@bracket-app/feat-setup": ["libs/bracket/feat-setup/src/index.ts"],
+      "@bracket-app/feature-result": [
+        "libs/bracket/feature-result/src/index.ts"
+      ],
+      "@bracket-app/feature-setup": ["libs/bracket/feature-setup/src/index.ts"],
+      "@bracket-app/feature-vote": ["libs/bracket/feature-vote/src/index.ts"],
+      "@bracket-app/ui": ["libs/shared/ui/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

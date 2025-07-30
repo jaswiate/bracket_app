@@ -1,0 +1,16 @@
+:root {
+	--color-green-0: #004030;
+	--color-green-1: #4a9782;
+
+	--color-primary-0: #dcd0a8;
+	--color-primary-1: #fff9e5;
+	--color-primary-2: #fffcf5;
+}
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: var(--color-primary-2);
+}

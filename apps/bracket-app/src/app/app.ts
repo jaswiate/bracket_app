@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { NavBar } from "@bracket-app/ui";
+import { AddBracketButton, NavBar } from "@bracket-app/ui";
 
 @Component({
-	imports: [RouterModule, NavBar],
+	imports: [RouterModule, NavBar, AddBracketButton],
 	selector: "app-root",
 	templateUrl: "./app.html",
 	styleUrl: "./app.css",

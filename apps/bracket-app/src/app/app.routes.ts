@@ -2,7 +2,7 @@ import { Route } from "@angular/router";
 
 export const appRoutes: Route[] = [
 	{
-		path: "",
+		path: "create",
 		loadComponent: () =>
 			import("@bracket-app/feature-setup").then((m) => m.BracketForm),
 	},

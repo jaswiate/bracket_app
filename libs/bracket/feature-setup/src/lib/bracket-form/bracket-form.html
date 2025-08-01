@@ -1,1 +1,30 @@
-<p>bracket-form works!</p>
+<div class="form-container">
+	<form [formGroup]="bracketForm" (ngSubmit)="onSubmit()">
+		<mat-card class="form-card">
+			<mat-card-header>
+				<mat-card-title>Create new Bracket</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-form-field appearance="outline">
+					<mat-label>Bracket Title</mat-label>
+					<input
+						matInput
+						formControlName="title"
+						required
+						placeholder="Enter bracket title"
+					/>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Bracket Size</mat-label>
+					<mat-select formControlName="size">
+						<mat-option [value]="4">4</mat-option>
+						<mat-option [value]="8">8</mat-option>
+						<mat-option [value]="16">16</mat-option>
+						<mat-option [value]="32">32</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-card-content>
+		</mat-card>
+	</form>
+</div>

@@ -1,9 +1,11 @@
 .nav-bar-container {
+	position: fixed;
 	display: flex;
 	flex-direction: column;
-	width: 15vw;
+	min-width: 13vw;
 	height: 100vh;
 	background-color: var(--color-green-0);
 	border-top-right-radius: 8vh;
 	border-bottom-right-radius: 8vh;
+	box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
 }

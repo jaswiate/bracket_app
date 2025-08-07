@@ -5,11 +5,44 @@ export interface BracketNode {
 	videoUrl?: string;
 }
 
-export interface Matchup {
+export class Matchup {
 	id: string;
 	bracketNode1?: BracketNode;
 	bracketNode2?: BracketNode;
-	winner?: BracketNode;
+	winnerNode?: BracketNode;
+
+	constructor(
+		id: string,
+		bracketNode1?: BracketNode,
+		bracketNode2?: BracketNode
+	) {
+		this.id = id;
+		this.bracketNode1 = bracketNode1;
+		this.bracketNode2 = bracketNode2;
+	}
+
+	add(node: BracketNode): void {
+		if (!this.bracketNode1) {
+			this.bracketNode1 = node;
+		} else if (!this.bracketNode2) {
+			this.bracketNode2 = node;
+		} else {
+			throw new Error("Both combatants already added");
+		}
+	}
+
+	get winner(): BracketNode | undefined {
+		if (this.winnerNode) {
+			return this.winnerNode;
+		}
+		if (this.bracketNode1 && !this.bracketNode2) {
+			return this.bracketNode1;
+		}
+		if (!this.bracketNode1 && this.bracketNode2) {
+			return this.bracketNode2;
+		}
+		return undefined;
+	}
 }
 
 export interface Bracket {
@@ -18,7 +51,7 @@ export interface Bracket {
 	size: BLength;
 	numberOfRounds: number;
 	description?: string;
-	titleImageUrl?: string;
+	imageUrl?: string;
 	rounds: Matchup[][];
 }
 

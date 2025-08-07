@@ -1,0 +1,34 @@
+.setup-main-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 100vh;
+	padding-left: 0.5rem;
+}
+
+.bracket-preview-container {
+	display: grid;
+	min-width: 68vw;
+	height: 100vh;
+	grid-auto-flow: column;
+	font-size: 90%;
+	overflow: auto;
+	line-height: 1;
+	background-color: var(--color-primary-2);
+}
+
+.bracket-form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 82vw;
+}
+
+.bracket-info-container {
+	width: 13vw;
+	background-color: var(--color-primary-0);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

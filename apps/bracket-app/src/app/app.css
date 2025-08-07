@@ -4,7 +4,8 @@
 }
 
 .content {
-	flex: 1;
-	padding: 2vw;
 	background-color: var(--color-primary-2);
+	width: 87vw;
+	height: 100vh;
+	margin-left: 13vw;
 }

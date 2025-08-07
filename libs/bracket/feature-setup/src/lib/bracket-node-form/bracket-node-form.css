@@ -1,0 +1,19 @@
+.node-form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 4rem;
+}
+
+.node-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.node-item {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}

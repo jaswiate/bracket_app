@@ -1,0 +1,11 @@
+<div class="setup-main-container">
+	@if (!bracket) {
+	<div class="bracket-form-container">
+		<lib-bracket-form (bracketCreated)="onBracketCreated($event)" />
+	</div>
+	} @else if (bracket) {
+	<div class="bracket-preview-container">
+		<lib-bracket-preview [bracket]="bracket" />
+	</div>
+	}
+</div>

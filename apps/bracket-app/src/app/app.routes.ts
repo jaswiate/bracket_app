@@ -4,10 +4,10 @@ export const appRoutes: Route[] = [
 	{
 		path: "create",
 		loadComponent: () =>
-			import("@bracket-app/feature-setup").then((m) => m.BracketForm),
+			import("@bracket-app/feature-setup").then((m) => m.SetupMainView),
 	},
 	{
-		path: "vote/:id",
+		path: "vote/:title",
 		loadComponent: () =>
 			import("@bracket-app/feature-vote").then((m) => m.BracketView),
 	},

@@ -1,0 +1,118 @@
+<div class="bracket-tournament">
+	<!-- Left Side -->
+	<div class="bracket-side left">
+		@for (round of leftRounds(); track $index; let roundIndex = $index) {
+		<div class="round">
+			<h3 class="round-title">
+				@if(leftRounds().length === roundIndex + 1 &&
+				leftRounds().length > 1) { Semi-Finals } @else { Round {{
+				roundIndex + 1 }} }
+			</h3>
+			<ul class="matchup-list">
+				@for (matchup of round; track matchup.id) {
+				<li
+					class="matchup-item"
+					[style.--connector-height]="getConnectorLineHeight(roundIndex)"
+				>
+					<div class="matchup">
+						<ng-container
+							[ngTemplateOutlet]="nodeTemplate()"
+							[ngTemplateOutletContext]="{
+								$implicit: matchup.bracketNode1,
+								matchup: matchup,
+								roundIndex: roundIndex,
+                                side: 'left'
+							}"
+						></ng-container>
+						<ng-container
+							[ngTemplateOutlet]="nodeTemplate()"
+							[ngTemplateOutletContext]="{
+								$implicit: matchup.bracketNode2,
+								matchup: matchup,
+								roundIndex: roundIndex,
+                                side: 'left'
+							}"
+						></ng-container>
+					</div>
+				</li>
+				}
+			</ul>
+		</div>
+		}
+	</div>
+
+	<!-- Final -->
+	<div class="bracket-side final">
+		@if(finalRound(); as final) {
+		<div class="round">
+			<h3 class="round-title">Final</h3>
+			<ul class="matchup-list">
+				@for(matchup of final; track matchup.id) {
+				<li class="matchup-item">
+					<div class="matchup">
+						<ng-container
+							[ngTemplateOutlet]="nodeTemplate()"
+							[ngTemplateOutletContext]="{
+								$implicit: matchup.bracketNode1,
+								matchup: matchup,
+								roundIndex: -1
+							}"
+						></ng-container>
+						<ng-container
+							[ngTemplateOutlet]="nodeTemplate()"
+							[ngTemplateOutletContext]="{
+								$implicit: matchup.bracketNode2,
+								matchup: matchup,
+								roundIndex: -1
+							}"
+						></ng-container>
+					</div>
+				</li>
+				}
+			</ul>
+		</div>
+		}
+	</div>
+
+	<!-- Right Side -->
+	<div class="bracket-side right">
+		@for (round of rightRounds().slice().reverse(); track $index; let
+		roundIndex = $index) {
+		<div class="round">
+			<h3 class="round-title">
+				@if(roundIndex === 0 && rightRounds().length > 1) { Semi-Finals
+				} @else { Round {{ rightRounds().length - roundIndex }} }
+			</h3>
+			<ul class="matchup-list">
+				@for (matchup of round; track matchup.id) {
+				<li
+					class="matchup-item"
+					[style.--connector-height]="getConnectorLineHeight(rightRounds().length - 1 - roundIndex)"
+				>
+					<div class="matchup">
+						<ng-container
+							[ngTemplateOutlet]="nodeTemplate()"
+							[ngTemplateOutletContext]="{
+								$implicit: matchup.bracketNode1,
+								matchup: matchup,
+								roundIndex: roundIndex,
+                                side: 'right'
+							}"
+						></ng-container>
+						<ng-container
+							[ngTemplateOutlet]="nodeTemplate()"
+							[ngTemplateOutletContext]="{
+								$implicit: matchup.bracketNode2,
+								matchup: matchup,
+								roundIndex: roundIndex,
+                                side: 'right'
+							}"
+						></ng-container>
+					</div>
+				</li>
+				}
+			</ul>
+		</div>
+		}
+	</div>
+</div>

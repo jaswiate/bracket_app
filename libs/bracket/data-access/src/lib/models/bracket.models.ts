@@ -21,7 +21,7 @@ export class Matchup {
 		this.bracketNode2 = bracketNode2;
 	}
 
-	add(node: BracketNode): void {
+	addNode(node: BracketNode): void {
 		if (!this.bracketNode1) {
 			this.bracketNode1 = node;
 		} else if (!this.bracketNode2) {
@@ -56,3 +56,10 @@ export interface Bracket {
 }
 
 export type BLength = 2 | 4 | 8 | 16 | 32 | 64 | 128;
+
+export interface NodeTemplateContext {
+	$implicit: BracketNode | undefined;
+	matchup: Matchup;
+	roundIndex: number;
+	side?: "left" | "right";
+}

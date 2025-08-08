@@ -1,19 +1,25 @@
 .node-form-container {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	margin-top: 4rem;
+	gap: 1.5rem;
+	z-index: 102;
 }
 
-.node-list {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1rem;
+.form-title {
+	margin: 0;
+	text-align: center;
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #1a202c;
 }
 
-.node-item {
+.node-form-container > mat-form-field {
+	width: 100%;
+}
+
+.form-actions {
 	display: flex;
-	gap: 1rem;
-	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
 }

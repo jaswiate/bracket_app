@@ -1,23 +1,18 @@
-<!-- <div class="node-form-container">
-	<h3>Add Bracket Nodes for "{{ bracketData.title }}"</h3>
-	<form [formGroup]="nodesForm">
-		<div class="node-list">
-			<div
-				*ngFor="let node of nodes.controls; let i = index"
-				[formGroupName]="i"
-				class="node-item"
-			>
-				<input formControlName="title" placeholder="Node Title" />
-				<input formControlName="imageUrl" placeholder="Image URL" />
-				<button
-					type="button"
-					(click)="removeNode(i)"
-					*ngIf="nodes.length > 1"
-				>
-					Remove
-				</button>
-			</div>
-		</div>
-		<button type="button" (click)="addNode()">Add Node</button>
-	</form>
-</div> -->
+<div class="node-form-container" [formGroup]="nodeForm">
+	<h3 class="form-title">Edit Participant</h3>
+	<mat-form-field>
+		<mat-label>Title</mat-label>
+		<input matInput formControlName="title" required />
+	</mat-form-field>
+	<div class="form-actions">
+		<button mat-stroked-button (click)="cancel()">Cancel</button>
+		<button
+			mat-flat-button
+			color="primary"
+			(click)="save()"
+			[disabled]="nodeForm.invalid"
+		>
+			Save
+		</button>
+	</div>
+</div>

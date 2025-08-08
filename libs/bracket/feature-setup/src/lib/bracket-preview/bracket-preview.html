@@ -1,88 +1,18 @@
-@if (bracket(); as br) {
-<div class="bracket-tournament">
-	<!-- Left Side -->
-	<div class="bracket-side left">
-		@for (round of leftRounds(); track $index; let roundIndex = $index) {
-		<div class="round">
-			<h3 class="round-title">
-				@if(leftRounds().length === roundIndex + 1 &&
-				leftRounds().length > 1) { Semi-Finals } @else { Round {{
-				roundIndex + 1 }} }
-			</h3>
-			<ul class="matchup-list">
-				@for (matchup of round; track matchup.id) {
-				<li
-					class="matchup-item"
-					[style.--connector-height]="getConnectorLineHeight(roundIndex)"
-				>
-					<div class="matchup">
-						<div class="node">
-							{{ matchup.bracketNode1?.title || 'TBD' }}
-						</div>
-						<div class="node">
-							{{ matchup.bracketNode2?.title || 'TBD' }}
-						</div>
-					</div>
-				</li>
-				}
-			</ul>
-		</div>
-		}
-	</div>
+<lib-bracket-template [bracket]="bracket()" [nodeTemplate]="nodeContent" />
 
-	<!-- Final -->
-	<div class="bracket-side final">
-		@if(finalRound(); as final) {
-		<div class="round">
-			<h3 class="round-title">Final</h3>
-			<ul class="matchup-list">
-				@for(matchup of final; track matchup.id) {
-				<li class="matchup-item">
-					<div class="matchup">
-						<div class="node">
-							{{ matchup.bracketNode1?.title || 'TBD' }}
-						</div>
-						<div class="node">
-							{{ matchup.bracketNode2?.title || 'TBD' }}
-						</div>
-					</div>
-				</li>
-				}
-			</ul>
-		</div>
-		}
+<ng-template
+	#nodeContent
+	let-node
+	let-matchup="matchup"
+	let-roundIndex="roundIndex"
+	let-side="side"
+>
+	<div
+		class="node"
+		[tabindex]="0"
+		(keydown.enter)="handleNodeClick(matchup, roundIndex, side)"
+		(click)="handleNodeClick(matchup, roundIndex, side)"
+	>
+		{{ matchup.bracketNode1?.title || '' }}
 	</div>
-
-	<!-- Right Side -->
-	<div class="bracket-side right">
-		@for (round of rightRounds().slice().reverse(); track $index; let i =
-		$index) {
-		<div class="round">
-			<h3 class="round-title">
-				@if(i === 0 && rightRounds().length > 1) { Semi-Finals } @else {
-				Round {{ rightRounds().length - i }} }
-			</h3>
-			<ul class="matchup-list">
-				@for (matchup of round; track matchup.id) {
-				<li
-					class="matchup-item"
-					[style.--connector-height]="getConnectorLineHeight(rightRounds().length - 1 - i)"
-				>
-					<div class="matchup">
-						<div class="node">
-							{{ matchup.bracketNode1?.title || 'TBD' }}
-						</div>
-						<div class="node">
-							{{ matchup.bracketNode2?.title || 'TBD' }}
-						</div>
-					</div>
-				</li>
-				}
-			</ul>
-		</div>
-		}
-	</div>
-</div>
-} @else {
-<p>Bracket data is not available.</p>
-}
+</ng-template>

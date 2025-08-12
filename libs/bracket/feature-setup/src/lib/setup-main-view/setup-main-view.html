@@ -1,10 +1,9 @@
-<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div class="setup-main-container">
 	@if (!bracket()) {
 	<div class="bracket-form-container">
 		<lib-bracket-form (bracketCreated)="onBracketCreated($event)" />
 	</div>
-	} @else if (bracket()) {
+	} @else if (bracket()){
 	<div class="bracket-preview-container">
 		<lib-bracket-preview
 			[bracket]="bracket()!"
@@ -17,20 +16,22 @@
 		(click)="closeModal()"
 		(keydown.escape)="closeModal()"
 		[tabIndex]="0"
+		role="presentation"
 	>
-		<dialog
+		<div
 			class="modal-content"
 			aria-modal="true"
 			(click)="$event.stopPropagation()"
 			(keydown.enter)="$event.stopPropagation()"
 			[tabIndex]="0"
+			role="dialog"
 		>
 			<lib-bracket-node-form
 				(formSubmitted)="saveNode($event)"
 				(formClosed)="closeModal()"
 			>
 			</lib-bracket-node-form>
-		</dialog>
+		</div>
 	</div>
 	}
 </div>

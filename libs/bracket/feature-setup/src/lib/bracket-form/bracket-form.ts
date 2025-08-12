@@ -1,4 +1,4 @@
-import { Component, EventEmitter, output, inject } from "@angular/core";
+import { Component, output, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
 	ReactiveFormsModule,
@@ -13,7 +13,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { type BLength, Bracket, Matchup } from "@bracket-app/data-access";
+import { type BLength, Bracket } from "@bracket-app/data-access";
+import { createBracket } from "@bracket-app/data-access";
 
 @Component({
 	selector: "lib-bracket-form",
@@ -39,40 +40,18 @@ export class BracketForm {
 	imageUrlPattern = "https?://.+\\.(jpg|jpeg|png|webp)";
 
 	bracketForm: FormGroup = this.fb.group({
-		title: ["xd", Validators.required],
+		title: ["mock", Validators.required],
 		size: [16 as BLength, Validators.required],
-		description: ["xd"],
+		description: ["mock"],
 		titleImageUrl: [
-			"https://xd.png",
+			"https://mock.png",
 			Validators.pattern(this.imageUrlPattern),
 		],
 	});
 
 	onSubmit() {
 		if (this.bracketForm.valid) {
-			const formValue = this.bracketForm.value;
-			const size: BLength = Number(formValue.size) as BLength;
-			const numberOfRounds = Math.log2(size);
-
-			const rounds: Matchup[][] = [];
-			for (let i = 0; i < numberOfRounds; i++) {
-				const matchupsInThisRound = size / Math.pow(2, i + 1);
-				const currentRound: Matchup[] = Array.from(
-					{ length: matchupsInThisRound },
-					() => new Matchup(crypto.randomUUID())
-				);
-				rounds.push(currentRound);
-			}
-
-			const bracket: Bracket = {
-				id: crypto.randomUUID(),
-				title: formValue.title,
-				size,
-				numberOfRounds,
-				description: formValue.description,
-				imageUrl: formValue.titleImageUrl,
-				rounds: rounds,
-			};
+			const bracket = createBracket(this.bracketForm);
 
 			this.bracketCreated.emit(bracket);
 			console.log("Bracket created:", bracket);

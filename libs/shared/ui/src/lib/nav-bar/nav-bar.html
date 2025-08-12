@@ -1,4 +1,16 @@
 <nav class="nav-bar-container">
-	<h1 class="app-title">BRACKETS</h1>
-	<img src="" alt="Logo" class="app-logo" />
+	<div class="nav-content">
+		<a routerLink="/" class="nav-title">BracketApp</a>
+		<div class="nav-actions">
+			@if (isBracketReadyForVote()) {
+			<button
+				class="start-voting-button"
+				color="accent"
+				(click)="startVoting()"
+			>
+				Start Voting
+			</button>
+			}
+		</div>
+	</div>
 </nav>

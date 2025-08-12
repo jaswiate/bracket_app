@@ -1,11 +1,6 @@
 import { Component, computed, input, TemplateRef } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {
-	Bracket,
-	Matchup,
-	BracketNode,
-	NodeTemplateContext,
-} from "@bracket-app/data-access";
+import { Bracket, NodeTemplateContext } from "@bracket-app/data-access";
 
 @Component({
 	selector: "lib-bracket-template",
@@ -32,7 +27,6 @@ export class BracketTemplate {
 	rightRounds = computed(() => {
 		if (!this.bracket().rounds) return [];
 		const preliminaryRounds = this.bracket().rounds.slice(0, -1);
-		console.log("Preliminary rounds right:", preliminaryRounds);
 		return preliminaryRounds.map((round) => round.slice(round.length / 2));
 	});
 

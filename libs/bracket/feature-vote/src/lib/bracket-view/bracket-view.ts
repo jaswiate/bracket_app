@@ -1,18 +1,34 @@
-import { Component, input, output } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Bracket, BracketNode, Matchup } from "@bracket-app/data-access";
+import {
+	BracketNode,
+	BracketStateService,
+	BSide,
+	Matchup,
+} from "@bracket-app/data-access";
+import { BracketTemplate } from "@bracket-app/ui";
 
 @Component({
 	selector: "lib-bracket-view",
-	imports: [CommonModule],
+	imports: [CommonModule, BracketTemplate],
 	templateUrl: "./bracket-view.html",
 	styleUrl: "./bracket-view.css",
 })
 export class BracketView {
-	bracket = input.required<Bracket>();
-	winnerSelected = output<{ winner: BracketNode; matchup: Matchup }>();
+	private bracketState = inject(BracketStateService);
 
-	selectWinner(winner: BracketNode, matchup: Matchup): void {
-		this.winnerSelected.emit({ winner, matchup });
+	bracket = this.bracketState.bracket;
+	winner = this.bracketState.winner;
+
+	selectWinner(
+		node: BracketNode,
+		matchup: Matchup,
+		roundIndex: number,
+		side: BSide
+	) {
+		if (!matchup.bracketNode1 || !matchup.bracketNode2) {
+			return;
+		}
+		this.bracketState.updateNextMatchup(node, matchup, roundIndex, side);
 	}
 }

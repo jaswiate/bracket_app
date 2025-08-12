@@ -1,7 +1,6 @@
 .nav-bar-container {
-	position: fixed;
 	display: flex;
-	flex-direction: column;
+	position: fixed;
 	min-width: 13vw;
 	height: 100vh;
 	background-color: var(--color-green-0);
@@ -9,4 +8,41 @@
 	border-bottom-right-radius: 8vh;
 	box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
 	z-index: 50;
+}
+
+.nav-content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding-left: 1.3rem;
+	padding-top: 2rem;
+	width: fit-content;
+}
+
+.nav-actions {
+	display: flex;
+	flex-direction: column;
+	justify-self: flex-end;
+	margin-top: 6rem;
+}
+
+.nav-title {
+	font-size: xx-large;
+	font-weight: bold;
+	font-family: var(--font-family);
+	color: var(--color-green-3);
+}
+
+.start-voting-button {
+	border-radius: 4rem;
+	border: none;
+	padding: 1rem;
+	font-size: large;
+	background-color: var(--color-green-1);
+	color: var(--color-green-0);
+}
+
+.start-voting-button:hover {
+	background-color: var(--color-green-2);
+	transition: all 0.1s ease-out;
 }

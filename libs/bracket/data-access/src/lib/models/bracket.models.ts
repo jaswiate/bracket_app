@@ -10,6 +10,7 @@ export class Matchup {
 	bracketNode1?: BracketNode;
 	bracketNode2?: BracketNode;
 	winnerNode?: BracketNode;
+	isFinalMatchup = false;
 
 	constructor(
 		id: string,
@@ -31,17 +32,12 @@ export class Matchup {
 		}
 	}
 
-	get winner(): BracketNode | undefined {
-		if (this.winnerNode) {
-			return this.winnerNode;
+	setWinner(node: BracketNode): void {
+		if (this.bracketNode1 === node || this.bracketNode2 === node) {
+			this.winnerNode = node;
+		} else {
+			throw new Error("Node is not part of this matchup");
 		}
-		if (this.bracketNode1 && !this.bracketNode2) {
-			return this.bracketNode1;
-		}
-		if (!this.bracketNode1 && this.bracketNode2) {
-			return this.bracketNode2;
-		}
-		return undefined;
 	}
 }
 
@@ -57,9 +53,11 @@ export interface Bracket {
 
 export type BLength = 2 | 4 | 8 | 16 | 32 | 64 | 128;
 
+export type BSide = "left" | "right";
+
 export interface NodeTemplateContext {
 	$implicit: BracketNode | undefined;
 	matchup: Matchup;
 	roundIndex: number;
-	side?: "left" | "right";
+	side?: BSide;
 }

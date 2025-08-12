@@ -1,1 +1,27 @@
-<p>bracket-view works!</p>
+@if (bracket()) {
+
+<lib-bracket-template [bracket]="bracket()!" [nodeTemplate]="nodeContent" />
+
+<ng-template
+	#nodeContent
+	let-node
+	let-matchup="matchup"
+	let-roundIndex="roundIndex"
+	let-side="side"
+>
+	<div
+		class="node"
+		[class.clickable]="(matchup.bracketNode1 && matchup.bracketNode2) || roundIndex === -1"
+		(click)="selectWinner(node!, matchup, roundIndex, side)"
+		(keydown.enter)="selectWinner(node!, matchup, roundIndex, side)"
+		tabindex="0"
+		role="button"
+	>
+		{{ node?.title || "" }}
+	</div>
+</ng-template>
+} @else {
+<p class="no-bracket-message">
+	No bracket data found. Please create a new bracket.
+</p>
+}

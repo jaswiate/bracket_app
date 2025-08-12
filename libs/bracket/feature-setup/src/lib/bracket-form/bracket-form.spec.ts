@@ -1,67 +1,56 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BracketForm } from './bracket-form';
-import { ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { BracketForm } from "./bracket-form";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 
-describe('BracketForm', () => {
-  let component: BracketForm;
-  let fixture: ComponentFixture<BracketForm>;
+describe("BracketForm", () => {
+	let component: BracketForm;
+	let fixture: ComponentFixture<BracketForm>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [BracketForm, ReactiveFormsModule],
-    }).compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [
+				BracketForm,
+				ReactiveFormsModule,
+				NoopAnimationsModule,
+				MatSelectModule,
+				MatFormFieldModule,
+				MatInputModule,
+			],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(BracketForm);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(BracketForm);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create the form', () => {
-    expect(component).toBeTruthy();
-    expect(component.bracketForm).toBeDefined();
-  });
+	it("should create the form", () => {
+		expect(component).toBeTruthy();
+		expect(component.bracketForm).toBeDefined();
+	});
 
-  it('should not continue if title or size is invalid', () => {
-    component.bracketForm.get('title')?.setValue('');
-    component.bracketForm.get('size')?.setValue(null);
-    component.continue();
-    expect(component.step).toBe(1);
-  });
+	it("should not emit bracketCreated event if form is invalid", () => {
+		spyOn(component.bracketCreated, "emit");
+		component.bracketForm.get("title")?.setValue("");
+		component.onSubmit();
+		expect(component.bracketCreated.emit).not.toHaveBeenCalled();
+	});
 
-  it('should continue to step 2 if title and size are valid', () => {
-    component.bracketForm.get('title')?.setValue('Bracket');
-    component.bracketForm.get('size')?.setValue(4);
-    component.continue();
-    expect(component.step).toBe(2);
-  });
+	it("should emit bracketCreated event if form is valid", () => {
+		spyOn(component.bracketCreated, "emit");
+		component.bracketForm.get("title")?.setValue("Test Bracket");
+		component.bracketForm.get("size")?.setValue(8);
+		component.onSubmit();
+		expect(component.bracketCreated.emit).toHaveBeenCalled();
+	});
 
-  it('should add and remove combatants', () => {
-    expect(component.combatants.length).toBe(0);
-    component.addCombatant();
-    expect(component.combatants.length).toBe(1);
-    component.removeCombatant(0);
-    expect(component.combatants.length).toBe(0);
-  });
-
-  it('should not remove combatant if index is invalid', () => {
-    component.addCombatant();
-    component.removeCombatant(5);
-    expect(component.combatants.length).toBe(1);
-  });
-
-  it('should log form value on valid submit', () => {
-    spyOn(console, 'log');
-    component.bracketForm.get('title')?.setValue('Bracket');
-    component.bracketForm.get('size')?.setValue(4);
-    component.onSubmit();
-    expect(console.log).toHaveBeenCalled();
-  });
-
-  it('should log error on invalid submit', () => {
-    spyOn(console, 'error');
-    component.bracketForm.get('title')?.setValue('');
-    component.onSubmit();
-    expect(console.error).toHaveBeenCalled();
-  });
+	it("should log an error on invalid submit", () => {
+		spyOn(console, "error");
+		component.bracketForm.get("title")?.setValue("");
+		component.onSubmit();
+		expect(console.error).toHaveBeenCalledWith("Bracket Form is invalid");
+	});
 });

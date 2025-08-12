@@ -1,8 +1,13 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { BracketForm } from "../bracket-form/bracket-form";
 import { BracketPreview } from "../bracket-preview/bracket-preview";
-import { Bracket, BracketNode, Matchup } from "@bracket-app/data-access";
+import {
+	Bracket,
+	BracketNode,
+	BracketStateService,
+	Matchup,
+} from "@bracket-app/data-access";
 import { BracketNodeForm } from "../bracket-node-form/bracket-node-form";
 
 @Component({
@@ -13,11 +18,14 @@ import { BracketNodeForm } from "../bracket-node-form/bracket-node-form";
 	styleUrl: "./setup-main-view.css",
 })
 export class SetupMainView {
-	bracket = signal<Bracket | undefined>(undefined);
+	private bracketState = inject(BracketStateService);
+
+	bracket = this.bracketState.bracket;
 	editingMatchup = signal<Matchup | null>(null);
+	isBracketReady = this.bracketState.isBracketReadyForVote;
 
 	onBracketCreated(bracket: Bracket) {
-		this.bracket.set(bracket);
+		this.bracketState.setBracket(bracket);
 	}
 
 	handleNodeClick(matchup: Matchup) {
